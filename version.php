@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Version information.
@@ -25,8 +25,8 @@
 defined("MOODLE_INTERNAL") || die();
 
 $plugin->component    = "auth_token";
-$plugin->dependencies = array( "tool_managertokens" => 2015111000 );
-$plugin->maturity     = "MATURITY_ALPHA";
-$plugin->release      = "0.0.0 (Build: 2015111000)";
-$plugin->requires     = 2015111000;
-$plugin->version      = 2015111000;
+$plugin->dependencies = array( "tool_managertokens" => 2017120200 );
+$plugin->maturity     = "MATURITY_RC";
+$plugin->release      = "0.1.0 (Build: 2017120200)";
+$plugin->requires     = 2017120200;
+$plugin->version      = 2016112900;

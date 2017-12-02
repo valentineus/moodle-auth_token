@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Authorization by tokens.
@@ -24,7 +24,8 @@
 
 defined("MOODLE_INTERNAL") || die();
 
-require_once($CFG->libdir . "/authlib.php");
+require_once($CFG->dirroot . "/admin/tool/managertokens/lib.php");
+require_once($CFG->libdir  . "/authlib.php");
 
 /**
  * Plugin user authentication plugin.
@@ -52,9 +53,9 @@ class auth_plugin_token extends auth_plugin_base {
      * Returns true if the username and password work or don't exist and false
      * if the user exists and the password is wrong.
      *
-     * @param  string $username The username
-     * @param  string $password The password
-     * @return boolean          Authentication success or failure.
+     * @param  string  $username The username
+     * @param  string  $password The password
+     * @return boolean           Authentication success or failure.
      */
     public function user_login($username, $password) {
         global $CFG, $DB;
@@ -70,10 +71,9 @@ class auth_plugin_token extends auth_plugin_base {
      * Updates the user's password.
      * Called when the user password is updated.
      *
-     * @param  object $user        User table object
-     * @param  string $newpassword Plaintext password
-     * @return boolean             Password updated success or failure.
-     *
+     * @param  object  $user        User table object
+     * @param  string  $newpassword Plaintext password
+     * @return boolean              Password updated success or failure.
      */
     public function user_update_password($user, $password) {
         $user = get_complete_user_data("id", $user->id);
@@ -124,5 +124,87 @@ class auth_plugin_token extends auth_plugin_base {
      */
     public function can_be_manually_set() {
         return true;
+    }
+
+    /**
+     * Hook for overriding behaviour before going to the login page.
+     */
+    public function pre_loginpage_hook() {
+        $this->loginpage_hook();
+    }
+
+    /**
+     * Hook for overriding behaviour of login page.
+     * This method is called from login/index.php page for all enabled auth plugins.
+     */
+    public function loginpage_hook() {
+        if ($token = $this->definition_token()) {
+            if ($user = $this->definition_user($token)) {
+                complete_user_login($user);
+                $this->additional_actions($token);
+            }
+        }
+    }
+
+    /**
+     * Executes additional conditions and redirects the user.
+     *
+     * @param object $token
+     */
+    private function additional_actions($token) {
+        if ($token->extendedaction == "redirect") {
+            $this->redirect_user($token->extendedoptions);
+        }
+
+        $this->redirect_user();
+    }
+
+    /**
+     * Indicates the transmitted token, if any.
+     *
+     * @return object
+     */
+    private function definition_token() {
+        $key   = optional_param("token", "", PARAM_NOTAGS);
+        $token = tool_managertokens_activate_token($key);
+        return $token;
+    }
+
+    /**
+     * Identifies the user who owns the token.
+     *
+     * @param  object $token
+     * @return object
+     */
+    private function definition_user($token) {
+        $user = false;
+
+        if ($token->targettype == "user") {
+            $user = core_user::get_user($token->targetid);
+        }
+
+        return $user;
+    }
+
+    /**
+     * Redirects the user.
+     *
+     * @param string $url
+     */
+    private function redirect_user($url = "") {
+        global $CFG, $SESSION;
+
+        $wantsurl = optional_param("wantsurl", "", PARAM_URL);
+        $redirect = $CFG->wwwroot;
+
+        if (!empty($url)) {
+            $redirect = new moodle_url($url);
+        } else if (isset($SESSION->wantsurl)) {
+            $redirect = $SESSION->wantsurl;
+        } else if (!empty($wantsurl)) {
+            $redirect = $wantsurl;
+        }
+
+        redirect($redirect);
     }
 }

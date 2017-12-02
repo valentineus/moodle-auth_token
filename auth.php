@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Authorization by tokens.
+ * Authentication Plugin: Authorization by tokens.
  *
  * @package   auth_token
  * @copyright 2017 "Valentin Popov" <info@valentineus.link>
@@ -60,7 +60,7 @@ class auth_plugin_token extends auth_plugin_base {
     public function user_login($username, $password) {
         global $CFG, $DB;
 
-        if ($user = $DB->get_record("user", array("username" => $username, "mnethostid" => $GFG->mnet_localhost_id))) {
+        if ($user = $DB->get_record("user", array("username" => $username, "mnethostid" => $CFG->mnet_localhost_id))) {
             return validate_internal_user_password($user, $password);
         }
 

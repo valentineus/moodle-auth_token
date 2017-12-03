@@ -138,25 +138,20 @@ class auth_plugin_token extends auth_plugin_base {
      * This method is called from login/index.php page for all enabled auth plugins.
      */
     public function loginpage_hook() {
+        global $USER;
+
         if ($token = $this->definition_token()) {
-            if ($user = $this->definition_user($token)) {
+            if (isloggedin()) {
+                tool_managertokens_perform_additional_action($token, $USER);
+                $this->redirect_user();
+            }
+
+            if ($user = tool_managertokens_definition_user($token)) {
                 complete_user_login($user);
-                $this->additional_actions($token);
+                tool_managertokens_perform_additional_action($token, $user);
+                $this->redirect_user();
             }
         }
-    }
-
-    /**
-     * Executes additional conditions and redirects the user.
-     *
-     * @param object $token
-     */
-    private function additional_actions($token) {
-        if ($token->extendedaction == "redirect") {
-            $this->redirect_user($token->extendedoptions);
-        }
-
-        $this->redirect_user();
     }
 
     /**
@@ -171,35 +166,17 @@ class auth_plugin_token extends auth_plugin_base {
     }
 
     /**
-     * Identifies the user who owns the token.
-     *
-     * @param  object $token
-     * @return object
-     */
-    private function definition_user($token) {
-        $user = false;
-
-        if ($token->targettype == "user") {
-            $user = core_user::get_user($token->targetid);
-        }
-
-        return $user;
-    }
-
-    /**
      * Redirects the user.
      *
      * @param string $url
      */
-    private function redirect_user($url = "") {
+    private function redirect_user() {
         global $CFG, $SESSION;
 
-        $wantsurl = optional_param("wantsurl", "", PARAM_URL);
+        $wantsurl = optional_param("wantsurl", null, PARAM_URL);
         $redirect = $CFG->wwwroot;
 
-        if (!empty($url)) {
-            $redirect = new moodle_url($url);
-        } else if (isset($SESSION->wantsurl)) {
+        if (isset($SESSION->wantsurl)) {
             $redirect = $SESSION->wantsurl;
         } else if (!empty($wantsurl)) {
             $redirect = $wantsurl;

@@ -18,12 +18,13 @@ Many applications, including Facebook, Google, and GitHub, use the token-based a
 
 * **PHP**: 5.6.32+;
 * **Moodle**: 3.2+;
-* **Plug-in**: [tool_managertokens](https://github.com/valentineus/moodle-tool_managertokens);
+* **Plug-ins**:
+    * [tool_managertokens](https://github.com/valentineus/moodle-tool_managertokens);
 
 ## Documentation
 
-* [Install the plugin](docs/getting-started.md);
-* [User's Manual](docs/getting-started.md);
+* [Install the plugin](docs/getting-started.md#installation);
+* [User's Manual](docs/getting-started.md#users-manual);
 
 ## License
 

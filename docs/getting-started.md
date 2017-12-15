@@ -2,9 +2,9 @@
 
 ## Navigation
 
-* [Installation]()
-    * [Build]()
-* [User's Manual]()
+* [Installation](#installation);
+    * [Build](#build);
+* [User's Manual](#users-manual);
 
 ## Installation
 

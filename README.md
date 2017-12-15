@@ -1,5 +1,10 @@
 # Authorization by token's
 
+[![GitHub Release](https://img.shields.io/github/release/valentineus/moodle-auth_token.svg)](https://github.com/valentineus/moodle-auth_token/releases)
+[![Build Status](https://travis-ci.org/valentineus/moodle-auth_token.svg?branch=master)](https://travis-ci.org/valentineus/moodle-auth_token)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/20fe9989b8a04887a53c67d8b87e33d1)](https://www.codacy.com/app/valentineus/moodle-auth_token)
+[![Gitter Badge](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/moodle-tool_managertokens/auth_token)
+
 Token-based authentication (also known as
 [JSON Web Token authentication](https://jwt.io/))
 is a new way of handling authentication of users in applications.

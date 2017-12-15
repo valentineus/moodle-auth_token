@@ -36,7 +36,7 @@ class auth_plugin_token extends auth_plugin_base {
      */
     public function __construct() {
         $this->authtype = "token";
-        $this->config = get_config("auth_token");
+        $this->config   = get_config("auth_token");
     }
 
     /**

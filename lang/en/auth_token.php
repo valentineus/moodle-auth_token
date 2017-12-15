@@ -15,11 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component "auth_token", language "en".
+ * Strings for component 'auth_token', language 'en'.
  *
  * @package   auth_token
  * @copyright 2017 "Valentin Popov" <info@valentineus.link>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string["pluginname"] = "Authorization by tokens";
+$string["pluginname"] = "Authorization by token";

@@ -27,6 +27,6 @@ defined("MOODLE_INTERNAL") || die();
 $plugin->component    = "auth_token";
 $plugin->dependencies = array( "tool_managertokens" => 2017120300 );
 $plugin->maturity     = "MATURITY_RC";
-$plugin->release      = "0.2.0 (Build: 2017120300)";
+$plugin->release      = "0.2.1 (Build: 2017121500)";
 $plugin->requires     = 2016112900;
-$plugin->version      = 2017120300;
+$plugin->version      = 2017121500;

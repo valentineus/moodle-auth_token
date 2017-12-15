@@ -30,6 +30,8 @@ Many applications, including Facebook, Google, and GitHub, use the token-based a
 
 * [Install the plugin](docs/getting-started.md#installation);
 * [User's Manual](docs/getting-started.md#users-manual);
+* [Bug Tracker](https://github.com/valentineus/moodle-auth_token/issues);
+* [Contributing](CONTRIBUTING.md);
 
 ## License
 
